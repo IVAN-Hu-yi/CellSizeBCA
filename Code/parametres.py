@@ -31,3 +31,4 @@ def __init__(self, N, M, Ci, Ri, l, rho, p):
     self.E0 = 0.05 # Normalisation constant for outflow
     self.alpha = - 0.25 # size-scaling exponent for inflow and maintainence
     self.gamma = 0.86 # size-scaling exponent for outflow
+
