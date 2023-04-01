@@ -23,6 +23,7 @@ def __init__(self, N, M, Ci, Ri, l, rho, p, vmax):
     self.mu = 1 # intrinsic growth rate  mass^-1
     self.km = 1 # individual per unit mass mass^-1
     self.m = 1.5 # maintainence
+    self.D = 0.5 # conversion effciency
 
     ####### Scaling Paras
 
@@ -32,4 +33,6 @@ def __init__(self, N, M, Ci, Ri, l, rho, p, vmax):
     self.alpha = - 0.25 # size-scaling exponent for inflow and maintainence
     self.gamma = 0.86 # size-scaling exponent for outflow
 
-    ####### 
+    ####### initialisation
+    self.R = 50 # initial resource mass
+    self.w = 2 # one parameter distribution 1 or 2 B(1, w)
