@@ -3,7 +3,7 @@ class paras():
         define model parametres
     '''
 
-def __init__(self, N, M, Ci, Ri, l, rho, p, vmax, m):
+def __init__(self, N, M, Ci, Ri, l, rho, p, vmax, m, D):
 
     # basic
     self.N = N # number of species
@@ -17,13 +17,14 @@ def __init__(self, N, M, Ci, Ri, l, rho, p, vmax, m):
     self.p = p # resource preferences N*M matrix
     self.v_in_max = vmax # max uptake/sigma func N*M matrix
     self.m = m # maintainence N*1 array
+    self.D = D # conversion effciency
 
     ####### Model Paras fixed
 
     self.R_half = 10 # coefficient in sigma func
     self.mu = 1 # intrinsic growth rate  mass^-1
     self.km = 1 # individual per unit mass mass^-1
-    self.D = 0.5 # conversion effciency
+    
 
     ####### Scaling Paras
 
@@ -40,3 +41,6 @@ def __init__(self, N, M, Ci, Ri, l, rho, p, vmax, m):
     ####### relevant paras in consumer preferences (similar to Marsland 2019)
     self.mu_c = 0.1 # proportion of favor resources types
     self.c0 = 0.01 # fraction of uptake of non-favored resource type
+
+    ####### relevant paras in conversion efficiency
+    self.Dbase = 0.5 # base efficiency for all resource-resource pair 
