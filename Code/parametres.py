@@ -3,7 +3,7 @@ class paras():
         define model parametres
     '''
 
-def __init__(self, N, M, Ci, Ri, l, rho, p):
+def __init__(self, N, M, Ci, Ri, l, rho, p, vmax):
 
     # basic
     self.N = N # number of species
@@ -15,14 +15,14 @@ def __init__(self, N, M, Ci, Ri, l, rho, p):
     self.l = l # leakage fraction for each species and resource N*M matrix
     self.rho = rho # external resource supply M*1 array
     self.p = p # resource preferences N*M matrix
+    self.v_in_max = vmax # max uptake/sigma func N*M matrix
 
     ####### Model Paras fixed
 
     self.R_half = 0.5 # coefficient in sigma func
-    self.v_in_max = 30 # max uptake/sigma func
     self.mu = 1 # intrinsic growth rate  mass^-1
     self.km = 1 # individual per unit mass mass^-1
-    self.m = 1.5
+    self.m = 1.5 # maintainence
 
     ####### Scaling Paras
 
@@ -32,3 +32,4 @@ def __init__(self, N, M, Ci, Ri, l, rho, p):
     self.alpha = - 0.25 # size-scaling exponent for inflow and maintainence
     self.gamma = 0.86 # size-scaling exponent for outflow
 
+    ####### 
