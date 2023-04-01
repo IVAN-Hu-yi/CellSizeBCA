@@ -31,3 +31,20 @@ def int_rho(M, rho):
     '''
     return np.array([rho]*M).T
 
+def int_vmax(M, N, vmax):
+    '''generate maximum uptake
+
+    Args:
+        M (int): int
+        N (int): _description_
+        vmax (int): _description_
+
+    Returns:
+        N*M matrix: _description_
+    '''
+
+    return np.random.normal(vmax, 0.01, (N, M))
+
+def int_mt(N, m):
+
+    return np.random.normal(m, 0.01, N)
