@@ -10,7 +10,7 @@ def int_R(M, R):
         Resource Content at t0
     '''
     np.random.seed(seed)
-    return np.random.normal(R, 0.5, M).reshape(M, 1)
+    return np.random.normal(R, 5, M).reshape(M, 1)
 
 def int_C(N, w):
     '''
@@ -29,16 +29,35 @@ def int_preferences(N, M, mu_c, c0):
         np.array: N*M matries
     '''
 
-    p = np.full((N*M), c0)
+    p = np.full((N*M), c0).reshape(N, M)
+    print(p)
     for i in range(N):
         np.random.seed(i) # ensure for each assembly, each species same preferences
         number = int(mu_c*M) if int(mu_c*M) > 0 else 1
         idx = np.random.randint(0, M-1, number) # select favored resoruces
+        temp = p[i, :]
         np.random.seed(i)
-        p[i, :][idx] = np.random.normal(mu_c, 0.001, number) # assign values
+        temp[idx] = np.random.normal(mu_c, 0.001, number) # assign values
         p[i, :] = p[i, :]/np.sum(p[i, :]) # normalised to 1
     return p
 
+def int_conversion(M, Dbase):
+
+    '''guassian sampling of conversion around Dbase
+
+    Args:
+        M (int): int
+        Dbase (float): Guassian mean
+
+    Returns:
+        np.array: shape input_resource * converted resource 
+    '''
+
+    np.random.seed(seed)
+    D = np.random.normal(Dbase, 0.1, (M, M)).reshape(M, M)
+    np.fill_diagonal(D, 0) # assume all metabolites convert to different form
+    return D/np.sum(D, axis=0)[np.newaxis, :] # column-wise normalisation
+    
 
 def int_l(M, l, same=True):
     '''
