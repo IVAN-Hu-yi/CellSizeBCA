@@ -16,7 +16,7 @@ def __init__(self, N, M, Ci, Ri, l, rho, p, vmax, m):
     self.rho = rho # external resource supply M*1 array
     self.p = p # resource preferences N*M matrix
     self.v_in_max = vmax # max uptake/sigma func N*M matrix
-    self.m = m # maintainence
+    self.m = m # maintainence N*1 array
 
     ####### Model Paras fixed
 
