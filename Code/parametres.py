@@ -36,3 +36,7 @@ def __init__(self, N, M, Ci, Ri, l, rho, p, vmax, m):
     ####### initialisation
     self.R = 50 # initial resource mass
     self.w = 2 # one parameter distribution 1 or 2 B(1, w)
+
+    ####### relevant paras in consumer preferences (similar to Marsland 2019)
+    self.mu_c = 0.1 # proportion of favor resources types
+    self.c0 = 0.01 # fraction of uptake of non-favored resource type
