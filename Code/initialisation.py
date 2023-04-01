@@ -54,11 +54,10 @@ def int_conversion(M, Dbase):
     '''
 
     np.random.seed(seed)
-    D = np.random.normal(Dbase, 0.1, (M, M)).reshape(M, M)
+    D = np.random.normal(Dbase, 0.1, (M, M)).reshape(M, M) # sample conversion
     np.fill_diagonal(D, 0) # assume all metabolites convert to different form
     return D/np.sum(D, axis=0)[np.newaxis, :] # column-wise normalisation
     
-
 def int_l(M, l, same=True):
     '''
      return leakage
