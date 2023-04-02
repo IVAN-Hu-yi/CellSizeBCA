@@ -24,7 +24,7 @@ def int_C(N, w, assemblenum):
 
 def int_preferences(N, M, mu_c, assemblenum):
     
-    '''Guassian sampling of preferences, assume all are generalilsts
+    '''Guassian sampling of preferences, assume all are generalists
 
     Returns:
         np.array: N*M matries
