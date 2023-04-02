@@ -32,7 +32,7 @@ def int_preferences(N, M, mu_c, assemblenum):
     '''
 
     p = np.full((N*M), 1/(M*10)).reshape(N, M)
-    number = int(mu_c*M) if int(mu_c*M) > 0 else 1
+    number = int(mu_c*M) if int(mu_c*M) > 0 else 1 # number of preferred resources
 
     for i in range(N):
         np.random.seed(i*assemblenum*i) # ensure for each experiment, each species same preferences
@@ -41,7 +41,8 @@ def int_preferences(N, M, mu_c, assemblenum):
         np.random.seed(i*assemblenum*i)
         temp[idx] = np.random.normal(1/number, 0.001, number) # assign values
         p[i, :] = p[i, :]/np.sum(p[i, :]) # normalised to 1
-    return p, number
+
+    return (p, number)
 
 def int_conversion(M, Dbase, assemblenum):
 
@@ -88,12 +89,12 @@ def int_vmax(N, M, v_max_base, p, number, assemblenum):
         np.array : N by M matrix
     '''
 
-    vmax = np.zeros((N, M))*0.1 # for non-favored 0.1 max uptake
+    vmax = np.ones((N, M))*0.1 # for non-favored 0.1 max uptake
     for i in range(N):
         temp_p = p[i, :] # identify preferred resource
         temp_vmax = vmax[i, :]
-        sorted = temp_p[::-1].sort()
-        val = sorted[number-1] # least preferred resource among the preferred
+        temp_p_copy = np.sort(temp_p)[::-1]
+        val = temp_p_copy[number-1] # least preferred resource among the preferred
         np.random.seed(i+40+assemblenum)
         temp_vmax[temp_p>=val] = np.random.normal(v_max_base, 1.5, len(temp_vmax[temp_p>0.01])) # define max uptake
         vmax[i, :] = temp_vmax # update temp_vmax
