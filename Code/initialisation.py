@@ -1,7 +1,6 @@
 import numpy as np
 from parametres import paras
 
-
 # Initial Conditions
 seed = 100 # set seed to ensure reproducible results in each experiment
 # assemblenum: int -> set random state for each individual assembly process
