@@ -100,8 +100,11 @@ def int_vmax(N, M, v_max_base, p, number, assemblenum):
     
     return vmax
 
-    
-
 def int_mt(N, m, assemblenum):
+    '''initialise maitainence
+
+    Returns:
+        np.array : N*1 matrix
+    '''
     np.random.seed(seed+assemblenum)
     return np.random.normal(m, 0.01, (N, 1)).reshape(N, 1)
