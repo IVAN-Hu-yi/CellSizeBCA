@@ -26,5 +26,20 @@ def vin(p, R, Rhalf, vmax=None, type=2):
             print('Vmax required for monod function')
         else:
             return vmax*((uptake)/(Rhalf + uptake))
+
     elif type==1: # linear
         return uptake
+    
+def vgrow(vin, leakage):
+    '''calculate resource flow needed for growth
+
+    Args:
+        vin (np.array): N*M matrix for resource inflow
+        leakage (np.array): M*1 matrix -- leakage fraction
+
+    Returns:
+        N*1 vector: resource flow needed for growth
+
+    '''
+    return vin @ 1-leakage
+
