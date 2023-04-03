@@ -1,7 +1,6 @@
 import numpy as np
 from parametres import paras
 
-
 # Initial Conditions
 seed = 100 # set seed to ensure reproducible results in each experiment
 # assemblenum: int -> set random state for each individual assembly process
@@ -24,7 +23,7 @@ def int_C(N, w, assemblenum):
 
 def int_preferences(N, M, mu_c, assemblenum):
     
-    '''Guassian sampling of preferences, assume all are generalilsts
+    '''Guassian sampling of preferences, assume all are generalists
 
     Returns:
         np.array: N*M matries
