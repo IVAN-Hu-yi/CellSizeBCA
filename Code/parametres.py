@@ -24,7 +24,8 @@ class Paras:
         self.R_half = 10 # coefficient in sigma func
         self.mu = 1 # intrinsic growth rate  mass^-1
         self.km = 1 # individual per unit mass mass^-1
-        self.rho_base = 20
+        self.rho_base = 20 # mean for rho
+        self.l_base = 0.05 # mean for leakage
 
     ####### Scaling Paras
 
