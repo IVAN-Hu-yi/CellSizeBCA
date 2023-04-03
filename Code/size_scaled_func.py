@@ -7,7 +7,7 @@ def scale_vin(vin, mass, B0, alpha):
     Returns:
         _type_: _description_
     '''
-    return vin*(B0*(mass**alpha))[:, None]
+    return vin*(B0*(mass**alpha))
 
 
 def scale_mt(m, mass, M0, alpha):
@@ -32,4 +32,4 @@ def scale_vout(vout, mass, E0, gamma):
         _type_: _description_
     '''
 
-    return vout*(E0*(mass**gamma))[:, None]
+    return vout*(E0*(mass**gamma))

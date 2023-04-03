@@ -5,7 +5,7 @@ from utilities import *
 from size_scaled_func import *
 import numpy as np
 
-def odes_not_scaled(y, t, l, m, rho, mu, km, p, D, vmax, type):
+def odes_not_scaled(y, t, l, m, rho, mu, km, p, D, vmax, type, Rhalf):
     '''ODEs of our model -- non-scaled version
 
     Args:
@@ -26,14 +26,14 @@ def odes_not_scaled(y, t, l, m, rho, mu, km, p, D, vmax, type):
     '''
 
     R, C = y[0], y[1]
-    v_in = vin(p, R, vmax, type)
+    v_in = vin(p, R, Rhalf, vmax, type)
     v_grow = vgrow(v_in, l)
-    v_out = vout(vin, l, D)
+    v_out = vout(v_in, l, D)
     vdiff = v_out - v_in
 
     return [mu*C*(v_grow-m), rho+km*(vdiff.T @ C)]
 
-def odes_scale_size(y, t, l, m, rho, mu, km, p, D, vmax, type, B0, M0, E0, alpha, gamma):
+def odes_scale_size(y, t, l, m, rho, mu, km, p, D, vmax, type, B0, M0, E0, alpha, gamma, Rhalf):
     '''ODEs of our model -- scaled version
 
     Args:
@@ -53,17 +53,22 @@ def odes_scale_size(y, t, l, m, rho, mu, km, p, D, vmax, type, B0, M0, E0, alpha
         E0 (float): normalmisation constant
         alpha (float): scaling constant
         gamma (float): scaling constant
+        Rhalf (float): constant for sigma function
 
     Returns:
         list: [dC/dt, dR/dt]
     '''
 
     R, C = y[0], y[1]
-    v_in = vin(p, R, vmax, type)
+    v_in = vin(p, R, Rhalf, vmax, type)
     v_in = scale_vin(v_in, C, B0, alpha)
+    print(v_in.shape)
     v_grow = vgrow(v_in, l)
-    v_out = vout(vin, l, D)
+    print(v_grow.shape)
+    v_out = vout(v_in, l, D)
+    print(v_out.shape)
     v_out = scale_vout(v_out, C, E0, gamma)
+    print(v_out.shape)
     vdiff = v_out - v_in
     m_scale = scale_mt(m, C, M0, alpha)
 

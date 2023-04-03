@@ -18,7 +18,7 @@ def vin(p, R, Rhalf, vmax=None, type=2):
        N by 1 vector: Vin for each species
     '''
     # calculate uptake
-    uptake = p*R.T[:, np.newaxis]
+    uptake = p * R.T[:, np.newaxis]
     uptake = uptake.reshape(p.shape)
 
     if type==2: # Monod function
@@ -55,7 +55,7 @@ def vout(vin, leakage, D):
     Returns:
         np.array: N*M matrix
     '''
-    
+
     out = vin @ D
     vout = out * leakage.T[:, np.newaxis]
     vout = vout.reshape(vin.shape)

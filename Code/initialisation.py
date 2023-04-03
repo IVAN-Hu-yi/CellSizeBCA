@@ -95,7 +95,7 @@ def int_vmax(N, M, v_max_base, p, number, assemblenum):
         temp_p_copy = np.sort(temp_p)[::-1]
         val = temp_p_copy[number-1] # least preferred resource among the preferred
         np.random.seed(i+40+assemblenum)
-        temp_vmax[temp_p>=val] = np.random.normal(v_max_base, 1.5, len(temp_vmax[temp_p>0.01])) # define max uptake
+        temp_vmax[temp_p>=val] = np.random.normal(v_max_base, 1.5, len(temp_vmax[temp_p>=val])) # define max uptake
         vmax[i, :] = temp_vmax # update temp_vmax
     
     return vmax

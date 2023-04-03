@@ -26,6 +26,9 @@ class Paras:
         self.km = 1 # individual per unit mass mass^-1
         self.rho_base = 20 # mean for rho
         self.l_base = 0.05 # mean for leakage
+        self.m_base = 1.2 # mean for m
+        self.v_max_base = 30 # mean for vmax
+        self.type = 2
 
     ####### Scaling Paras
 
@@ -36,7 +39,7 @@ class Paras:
         self.gamma = 0.86 # size-scaling exponent for outflow
 
     ####### initialisation
-        self.R = 50 # initial resource mass
+        self.R0 = 50 # initial resource mass
         self.w = 2 # one parameter distribution 1 or 2 B(1, w)
 
         ####### relevant paras in consumer preferences (similar to Marsland 2019)
