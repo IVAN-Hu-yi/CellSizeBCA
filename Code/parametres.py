@@ -10,9 +10,9 @@ def __init__(self, N, M, Ci, Ri, l, rho, p, vmax, m, D):
     self.M = M # number of resource types
     
     ####### Model Paras defined
-    self.Ci = Ci # initial biomass for each species N*1 array
-    self.Ri = Ri # initial resource content for each resource type M*1 array
-    self.l = l # leakage fraction for each species and resource N*M matrix
+    self.C = Ci # initial biomass for each species N*1 array
+    self.R = Ri # initial resource content for each resource type M*1 array
+    self.l = l # leakage fraction for each resource M*1 matrix
     self.rho = rho # external resource supply M*1 array
     self.p = p # resource preferences N*M matrix
     self.v_in_max = vmax # max uptake/sigma func N*M matrix
