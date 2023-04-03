@@ -1,5 +1,5 @@
 import numpy as np
-from parametres import paras
+from parametres import Paras
 
 # Initial Conditions
 seed = 100 # set seed to ensure reproducible results in each experiment

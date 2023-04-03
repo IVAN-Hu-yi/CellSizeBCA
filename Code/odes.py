@@ -3,6 +3,7 @@
 from initialisation import *
 from utilities import *
 from size_scaled_func import *
+import numpy as np
 
 def odes_not_scaled(y, t, l, m, rho, mu, km, p, D, vmax, type):
     '''ODEs of our model -- non-scaled version
