@@ -25,7 +25,7 @@ def odes_not_scaled(y, t, l, m, rho, mu, km, p, D, vmax, type, Rhalf):
         list: [dC/dt, dR/dt]
     '''
 
-    R, C = y[0], y[1]
+    R, C = y
     v_in = vin(p, R, Rhalf, vmax, type)
     v_grow = vgrow(v_in, l)
     v_out = vout(v_in, l, D)
@@ -33,7 +33,7 @@ def odes_not_scaled(y, t, l, m, rho, mu, km, p, D, vmax, type, Rhalf):
 
     return [mu*C*(v_grow-m), rho+km*(vdiff.T @ C)]
 
-def odes_scale_size(y, t, l, m, rho, mu, km, p, D, vmax, type, B0, M0, E0, alpha, gamma, Rhalf):
+def odes_scale_size(t, y, l, m, rho, mu, km, p, D, vmax, type, B0, M0, E0, alpha, gamma, Rhalf):
     '''ODEs of our model -- scaled version
 
     Args:
@@ -58,8 +58,10 @@ def odes_scale_size(y, t, l, m, rho, mu, km, p, D, vmax, type, B0, M0, E0, alpha
     Returns:
         list: [dC/dt, dR/dt]
     '''
-
-    R, C = y[0], y[1]
+    N, M = vmax.shape
+    R, C = y[0:M], y[M:M+N]
+    R = R.reshape(M, 1)
+    C = C.reshape(N, 1)
     v_in = vin(p, R, Rhalf, vmax, type)
     v_in = scale_vin(v_in, C, B0, alpha)
     v_grow = vgrow(v_in, l)
@@ -68,4 +70,10 @@ def odes_scale_size(y, t, l, m, rho, mu, km, p, D, vmax, type, B0, M0, E0, alpha
     vdiff = v_out - v_in
     m_scale = scale_mt(m, C, M0, alpha)
 
-    return [mu*C*(v_grow-m_scale), rho+km*(vdiff.T @ C)]
+    A = np.empty((N+M))
+    drdt = rho+km*(vdiff.T @ C)
+    A[0:M] = drdt.reshape(M,)
+    dcdt = mu*C*(v_grow-m_scale)
+    A[M:M+N] = dcdt.reshape(N,)
+
+    return A
