@@ -107,4 +107,4 @@ def int_mt(N, m, assemblenum):
         np.array : N*1 matrix
     '''
     np.random.seed(seed+assemblenum)
-    return np.random.normal(m, 0.01, (N, 1)).reshape(N, 1)
+    return np.random.normal(m, 0.1, (N, 1)).reshape(N, 1)

@@ -9,7 +9,7 @@ def scale_vin(vin, mass, B0, alpha):
     '''
     # mass[mass<0] = 0
     # return  vin*(B0*(mass**alpha))
-    return np.sign(mass) * vin*(B0*(mass**alpha))
+    return np.sign(mass) * vin*(B0*(np.abs(mass)**alpha))
 
 
 def scale_mt(m, mass, M0, alpha):
