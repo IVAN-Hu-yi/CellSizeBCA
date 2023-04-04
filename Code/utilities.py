@@ -50,13 +50,13 @@ def vout(vin, leakage, D):
     Args:
         vin (np.array): N*M matrix for resource inflow
         leakage (np.array): M*1 matrix -- leakage fraction
-        D（np.array): N*M matrix for conversion efficiency
+        D (np.array): N*M matrix for conversion efficiency
 
     Returns:
         np.array: N*M matrix
     '''
 
-    out = vin @ D
-    vout = out * leakage.T[:, np.newaxis]
+    vout = (vin @ D)* leakage.T[:, np.newaxis]
     vout = vout.reshape(vin.shape)
     return vout
+
