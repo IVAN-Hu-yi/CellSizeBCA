@@ -11,6 +11,16 @@ def scale_vin(vin, mass, B0, alpha):
     # return  vin*(B0*(mass**alpha))
     return np.sign(mass) * vin*(B0*(np.abs(mass)**alpha))
 
+# def scale_vgrow(vgrow, mass, B0, alpha):
+
+#     '''v_in scaling
+
+#     Returns:
+#         _type_: _description_
+#     '''
+#     # mass[mass<0] = 0
+#     # return  vin*(B0*(mass**alpha))
+#     return np.sign(mass) * vgrow*(B0*(np.abs(mass)**alpha))
 
 def scale_mt(m, mass, M0, alpha):
     '''maintanence scaling

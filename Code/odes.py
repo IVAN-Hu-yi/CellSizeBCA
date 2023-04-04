@@ -65,6 +65,7 @@ def odes_scale_size(t, y, l, m, rho, mu, km, p, D, vmax, type, B0, M0, E0, alpha
     v_in = vin(p, R, Rhalf, vmax, type)
     v_in = scale_vin(v_in, C, B0, alpha)
     v_grow = vgrow(v_in, l)
+    # v_grow = scale_vgrow(v_grow, C, B0, alpha)
     v_out = vout(v_in, l, D)
     v_out = scale_vout(v_out, C, E0, gamma)
     vdiff = v_out - v_in

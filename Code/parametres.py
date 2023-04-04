@@ -24,9 +24,9 @@ class Paras:
         self.R_half = 1 # coefficient in sigma func
         self.mu = 0.5 # intrinsic growth rate  mass^-1
         self.km = 1 # individual per unit mass mass^-1
-        self.rho_base = 0 # mean for rho
-        self.l_base = 0.001 # mean for leakage
-        self.m_base = 1.4 # mean for m
+        self.rho_base = 0.5 # mean for rho
+        self.l_base = 0.1 # mean for leakage
+        self.m_base = 1.2 # mean for m
         self.v_max_base = 1.5 # mean for vmax
         self.type = 2
 
@@ -39,7 +39,7 @@ class Paras:
         self.gamma = 0.86 # size-scaling exponent for outflow
 
         ####### initialisation
-        self.R0 = 10 # initial resource mass
+        self.R0 = 5 # initial resource mass
         self.w = 2 # one parameter distribution 1 or 2 B(1, w)
 
         ####### relevant paras in consumer preferences (similar to Marsland 2019)

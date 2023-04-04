@@ -34,10 +34,10 @@ def int_preferences(N, M, mu_c, assemblenum):
     number = int(mu_c*M) if int(mu_c*M) > 0 else 1 # number of preferred resources
 
     for i in range(N):
-        np.random.seed(i*assemblenum*i) # ensure for each experiment, each species same preferences
+        np.random.seed(i*assemblenum) # ensure for each experiment, each species same preferences
         idx = np.random.randint(0, M-1, number) # select favored resoruces
         temp = p[i, :]
-        np.random.seed(i*assemblenum*i)
+        np.random.seed(i*assemblenum)
         temp[idx] = np.random.normal(1/number, 0.001, number) # assign values
         p[i, :] = p[i, :]/np.sum(p[i, :]) # normalised to 1
 
