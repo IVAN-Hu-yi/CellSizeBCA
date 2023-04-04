@@ -24,13 +24,13 @@ class Paras:
         self.R_half = 1 # coefficient in sigma func
         self.mu = 0.5 # intrinsic growth rate  mass^-1
         self.km = 1 # individual per unit mass mass^-1
-        self.rho_base = 0.05 # mean for rho
+        self.rho_base = 0 # mean for rho
         self.l_base = 0.001 # mean for leakage
         self.m_base = 1.4 # mean for m
         self.v_max_base = 1.5 # mean for vmax
         self.type = 2
 
-    ####### Scaling Paras
+        ####### Scaling Paras
 
         self.B0 = 1e-03 # Normalisation constant for resource inflow
         self.M0 = 1e-03 # Normalisation constant for maintenance
@@ -38,7 +38,7 @@ class Paras:
         self.alpha = - 0.25 # size-scaling exponent for inflow and maintainence
         self.gamma = 0.86 # size-scaling exponent for outflow
 
-    ####### initialisation
+        ####### initialisation
         self.R0 = 10 # initial resource mass
         self.w = 2 # one parameter distribution 1 or 2 B(1, w)
 
