@@ -3,6 +3,8 @@
 ## intermediate values calcualtions
 
 import numpy as np
+import matplotlib.pyplot as plt
+import seaborn 
 
 def vin(p, R, Rhalf, vmax=None, type=2):
     '''Calcualte Vin for each species
@@ -60,3 +62,14 @@ def vout(vin, leakage, D):
     vout = vout.reshape(vin.shape)
     return vout
 
+### Results extractions
+
+def extract_Ct_single_assembly(data):
+
+    N, tsteps = data.shape
+    Cts_single = np.empty((N, tsteps))
+    for i in range(tsteps):
+        Cts_single[:, i] = data[:, i]
+    return Cts_single
+
+#### Plot Funcs
