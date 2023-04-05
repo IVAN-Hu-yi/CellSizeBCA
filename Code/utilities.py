@@ -65,11 +65,50 @@ def vout(vin, leakage, D):
 ### Results extractions
 
 def extract_Ct_single_assembly(data):
+    
+    '''transform to a 2D matrix
+
+    Args:
+        data (np.array): N*tstep matrix from solve_ivp results
+
+    Returns:
+        _type_: _description_
+    '''
 
     N, tsteps = data.shape
     Cts_single = np.empty((N, tsteps))
     for i in range(tsteps):
         Cts_single[:, i] = data[:, i]
     return Cts_single
+
+def relative_abundance(data):
+     '''transform them into relative abundance data
+
+    Args:
+        data (np.array): N*tstep matrix from solve_ivp results
+
+    Returns:
+        _type_: _description_
+    '''
+     data = extract_Ct_single_assembly(data)
+     return data/np.sum(data, axis=0)
+
+def extract_Ct_multiple(data):
+
+    '''transform raw abundance data into a single N*tstep*(num of assemblies)
+    
+    Args:
+        data (list): lists of assembly results 
+    
+    Returns:
+        np.array : N*tstep*(num of assemblies)
+    '''
+
+    num = len(data)
+    N, tstep = data[0].shape
+    Cts_multiple = np.empty((N, tstep, num))
+    for i in range(num):
+        Cts_multiple[:, :, i] = extract_Ct_multiple(data[i])
+    return Cts_multiple
 
 #### Plot Funcs

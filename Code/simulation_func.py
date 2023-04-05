@@ -36,6 +36,7 @@ def sim_run(N, M, para, assemblenum, tstop, teval):
     Rt = result['y'][0:M]
     Ct = result['y'][M:M+N]
     t = result['t']
+    Ct = extract_Ct_single_assembly(Ct)
 
 
     return Rt, Ct, t, para
