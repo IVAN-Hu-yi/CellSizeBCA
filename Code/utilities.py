@@ -72,7 +72,7 @@ def extract_Ct_single_assembly(data):
         data (np.array): N*tstep matrix from solve_ivp results
 
     Returns:
-        _type_: _description_
+        _type_: N*tstep
     '''
 
     N, tsteps = data.shape
@@ -108,7 +108,7 @@ def extract_Ct_multiple(data):
     N, tstep = data[0].shape
     Cts_multiple = np.empty((N, tstep, num))
     for i in range(num):
-        Cts_multiple[:, :, i] = extract_Ct_multiple(data[i])
+        Cts_multiple[:, :, i] = extract_Ct_single_assembly(data[i])
     return Cts_multiple
 
 #### Plot Funcs
