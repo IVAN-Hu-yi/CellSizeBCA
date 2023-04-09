@@ -22,9 +22,9 @@ class Paras:
         ####### Model Paras fixed
 
         self.R_half = 1 # coefficient in sigma func
-        self.mu = 0.5 # intrinsic growth rate  mass^-1
+        self.mu = 1 # intrinsic growth rate  mass^-1
         self.km = 1 # individual per unit mass mass^-1
-        self.rho_base = 0.5 # mean for rho
+        self.rho_base = 1.6 # mean for rho
         self.l_base = 0.1 # mean for leakage
         self.m_base = 1.2 # mean for m
         self.v_max_base = 1.5 # mean for vmax
@@ -47,7 +47,7 @@ class Paras:
         self.c0 = 0.01 # fraction of uptake of non-favored resource type
 
         ####### relevant paras in conversion efficiency
-        self.Dbase = 0.5 # base efficiency for all resource-resource pair 
+        self.Dbase = 0.2 # base efficiency for all resource-resource pair 
 
     def paras(self, Ci, Ri, l, rho, p, vmax, m, D):
 

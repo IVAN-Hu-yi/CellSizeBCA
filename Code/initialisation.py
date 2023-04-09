@@ -30,35 +30,38 @@ def int_preferences(N, M, mu_c, assemblenum):
         number: number of preferred resources
     '''
 
-    p = np.full((N*M), 1/(M*10)).reshape(N, M)
+    p = np.zeros((N, M))
     number = int(mu_c*M) if int(mu_c*M) > 0 else 1 # number of preferred resources
 
     for i in range(N):
-        np.random.seed(i*assemblenum) # ensure for each experiment, each species same preferences
+        np.random.seed(i) # ensure for each experiment, each species same preferences
         idx = np.random.randint(0, M-1, number) # select favored resoruces
-        temp = p[i, :]
-        np.random.seed(i*assemblenum)
-        temp[idx] = np.random.normal(1/number, 0.001, number) # assign values
+        
+        np.random.seed(i+assemblenum)
+        values = np.random.normal(1/number, 0.001, number).tolist() # initialisation
+        for x, j in zip(idx, range(len(values))):
+            p[i, x] = values[j]  # assign values
         p[i, :] = p[i, :]/np.sum(p[i, :]) # normalised to 1
 
     return (p, number)
 
 def int_conversion(M, Dbase, assemblenum):
 
-    '''guassian sampling of conversion around Dbase
+    '''guassian sampling of conversion around Dbase, only allow sysmetrical matrix
 
     Args:
         M (int): int
         Dbase (float): Guassian mean
 
     Returns:
-        np.array: shape input_resource * converted resource 
+        np.array: shape input_resource * output resource 
     '''
 
-    np.random.seed(seed+assemblenum)
-    D = np.random.normal(Dbase, 0.1, (M, M)).reshape(M, M) # sample conversion
-    np.fill_diagonal(D, 0) # assume all metabolites convert to different form
-    return D/np.sum(D, axis=0)[np.newaxis, :] # column-wise normalisation
+    # np.random.seed(seed+assemblenum)
+    np.random.seed(seed)
+    D = np.random.normal(Dbase, Dbase/10, (M, M)).reshape(M, M) # sample conversion
+    D = D * (1-np.tri(*D.shape, k=-1)) # not allow reversible reactions 
+    return D/np.sum(D, axis=1)[:, np.newaxis] # row-wise normalisation
     
 def int_l(M, l, assemblenum, same=True):
     '''
@@ -66,13 +69,13 @@ def int_l(M, l, assemblenum, same=True):
     '''
     np.random.seed(seed+assemblenum)
     if same: return np.array([l]*M).reshape(M, 1)
-    else: return np.random.normal(l, 0.005, M).reshape(M, 1)
+    else: return np.random.normal(l, l/10, M).reshape(M, 1)
 
 def int_rho(M, rho, assemblenum):
     '''
     define external resource supply
     '''
-    np.random.seed(seed+assemblenum)
+    # np.random.seed(seed)
     return np.array([rho]*M).reshape(M, 1)
 
 def int_vmax(N, M, v_max_base, p, number, assemblenum):
@@ -95,7 +98,7 @@ def int_vmax(N, M, v_max_base, p, number, assemblenum):
         temp_p_copy = np.sort(temp_p)[::-1]
         val = temp_p_copy[number-1] # least preferred resource among the preferred
         np.random.seed(i+40+assemblenum)
-        temp_vmax[temp_p>=val] = np.random.normal(v_max_base, 1.5, len(temp_vmax[temp_p>=val])) # define max uptake
+        temp_vmax[temp_p>=val] = np.random.normal(v_max_base, 0.1, len(temp_vmax[temp_p>=val])) # define max uptake
         vmax[i, :] = temp_vmax # update temp_vmax
     
     return vmax
@@ -106,5 +109,6 @@ def int_mt(N, m, assemblenum):
     Returns:
         np.array : N*1 matrix
     '''
-    np.random.seed(seed+assemblenum)
+    # np.random.seed(seed+assemblenum)
+    np.random.seed(seed)
     return np.random.normal(m, 0.1, (N, 1)).reshape(N, 1)

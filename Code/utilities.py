@@ -4,7 +4,9 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-import seaborn 
+import seaborn as sns
+from scipy.stats import spearmanr
+from scipy.stats import permutation_test
 
 def vin(p, R, Rhalf, vmax=None, type=2):
     '''Calcualte Vin for each species
@@ -110,5 +112,59 @@ def extract_Ct_multiple(data):
     for i in range(num):
         Cts_multiple[:, :, i] = extract_Ct_single_assembly(data[i])
     return Cts_multiple
+
+#### Create Assocation matricies for follow up network analysis
+
+
+def pairwise_spearmanr(data):
+
+    '''pairwse association matrix
+
+    Args:
+        data (np.array): N*width
+
+    Returns:
+        M (N*N): Asscoation matrix with each element contains a coefficient
+        p : p values for each coefficient
+    '''
+    N, _ = data.shape
+    M = np.empty((N, N))
+    p = np.empty((N, N))
+    dic = {}
+    for i in range(N):
+        for j in range(N):
+            if str(i)+str(j) in dic.keys() or str(j)+str(i) in dic.keys():
+                pass
+            else:
+                corre = spearmanr(data[i, :], data[j, :])
+                dic[str(i)+str(j)] = True
+                M[i, j] = f'{corre.statistic:.4f}'
+                p[i, j] = f'{corre.pvalue:.4f}'
+    return M.round(4), p.round(6)
+
+def assocation_series(data, w, s, tstarts, tstop):
+    ''' Give pairwise association for sliding time
+
+    Args:
+        data (np.array): time series of C for each species, N*time
+        w (int): width of the window
+        s (int): stride -- how much slide over
+        tstarts (int): starting time
+        tstop (int): ending time
+    '''
+
+    ranges = tstop - tstarts
+    num = int(((ranges-w)/w) * (w/s)) # number of associations
+    N, _ = data.shape
+    series_M = np.empty((N, N, num))
+    series_p = np.empty((N, N, num))
+    for i in range(num):
+        window_data = data[:, i*s:i*s+w]
+        M, p = pairwise_spearmanr(window_data)
+        np.fill_diagonal(M, 0)
+        series_M[:, :, i] = M
+        series_p[:, :, i] = p
+    
+    return series_M, series_p
 
 #### Plot Funcs
