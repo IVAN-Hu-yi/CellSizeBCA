@@ -35,7 +35,7 @@ def int_preferences(N, M, mu_c, assemblenum):
 
     for i in range(N):
         np.random.seed(i) # ensure for each experiment, each species same preferences
-        idx = np.random.randint(0, M-1, number) # select favored resoruces
+        idx = np.random.randint(0, M, number) # select favored resoruces
         
         np.random.seed(i+assemblenum)
         values = np.random.normal(1/number, 0.001, number).tolist() # initialisation
@@ -45,7 +45,7 @@ def int_preferences(N, M, mu_c, assemblenum):
 
     return (p, number)
 
-def int_conversion(M, Dbase, assemblenum):
+def int_conversion(M, Dbase, number, assemblenum, sparse=False):
 
     '''guassian sampling of conversion around Dbase, only allow sysmetrical matrix
 
@@ -58,9 +58,21 @@ def int_conversion(M, Dbase, assemblenum):
     '''
 
     # np.random.seed(seed+assemblenum)
-    np.random.seed(seed)
-    D = np.random.normal(Dbase, Dbase/10, (M, M)).reshape(M, M) # sample conversion
-    D = D * (1-np.tri(*D.shape, k=-1)) # not allow reversible reactions 
+    np.random.seed(seed+100)
+    if sparse: 
+        D = np.random.normal(Dbase, Dbase/10, (M, M)).reshape(M, M) # sample conversion
+        D = D * (1-np.tri(*D.shape, k=-1)) # not allow reversible reactions
+    else:
+        D = np.zeros((M, M))
+        for i in range(M):
+            np.random.seed(seed+i*100)
+            num = np.random.randint(1, number+1) # number of resource type being converted from one resource
+            idx = np.random.randint(0, M, num) # select idx for corresponding resource type
+            values = np.random.normal(Dbase, Dbase/10, num) # sample conversion
+            # D = D * (1-np.tri(*D.shape, k=-1)) # not allow reversible reactions
+            for x, y in zip(idx, range(num)):
+                D[i, x] = values[y]
+
     return D/np.sum(D, axis=1)[:, np.newaxis] # row-wise normalisation
     
 def int_l(M, l, assemblenum, same=True):

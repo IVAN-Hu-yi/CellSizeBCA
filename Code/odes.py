@@ -5,7 +5,7 @@ from utilities import *
 from size_scaled_func import *
 import numpy as np
 
-def odes_not_scaled(y, t, l, m, rho, mu, km, p, D, vmax, type, Rhalf):
+def odes_not_scaled(t, y, l, m, rho, mu, km, p, D, vmax, type, Rhalf):
     '''ODEs of our model -- non-scaled version
 
     Args:
@@ -24,12 +24,19 @@ def odes_not_scaled(y, t, l, m, rho, mu, km, p, D, vmax, type, Rhalf):
     Returns:
         list: [dC/dt, dR/dt]
     '''
-
-    R, C = y
+    N, M = vmax.shape
+    R, C = y[0:M], y[M:M+N]
     v_in = vin(p, R, Rhalf, vmax, type)
     v_grow = vgrow(v_in, l)
     v_out = vout(v_in, l, D)
     vdiff = v_out - v_in
+
+
+    A = np.empty((N+M))
+    drdt = rho+km*(vdiff.T @ C)
+    A[0:M] = drdt.reshape(M,)
+    dcdt = mu*C*(v_grow-m)
+    A[M:M+N] = dcdt.reshape(N,)
 
     return [mu*C*(v_grow-m), rho+km*(vdiff.T @ C)]
 
