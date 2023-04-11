@@ -9,8 +9,8 @@ def int_R(M, R, assemblenum):
     '''
         Resource Content at t0
     '''
-    np.random.seed(seed+assemblenum)
-    return np.random.normal(R, 5, M).reshape(M, 1)
+    # np.random.seed(seed+assemblenum)
+    return np.full((M, 1), R)
 
 def int_C(N, w, assemblenum):
     '''

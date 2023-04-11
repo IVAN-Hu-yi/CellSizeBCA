@@ -26,7 +26,7 @@ class Paras:
         self.km = 1 # individual per unit mass mass^-1
         self.rho_base = 1 # mean for rho
         self.l_base = 0.1 # mean for leakage
-        self.m_base = 9 # mean for m
+        self.m_base = 9.5 # mean for m
         self.v_max_base = 10 # mean for vmax
         self.type = 2
 
