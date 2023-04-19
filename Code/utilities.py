@@ -151,6 +151,10 @@ def assocation_series(data, w, s, tstarts, tstop):
         s (int): stride -- how much slide over
         tstarts (int): starting time
         tstop (int): ending time
+
+    Returns:
+        series_M (np.array): N*N*num containing association coefficient
+        series_p (np.array): N*N*num containing p-values
     '''
 
     ranges = tstop - tstarts
