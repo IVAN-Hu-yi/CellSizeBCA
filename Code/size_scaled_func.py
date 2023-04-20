@@ -22,7 +22,7 @@ def scale_vin(vin, mass, B0, alpha):
 #     # return  vin*(B0*(mass**alpha))
 #     return np.sign(mass) * vgrow*(B0*(np.abs(mass)**alpha))
 
-def scale_mt(m, mass, M0, alpha):
+def scale_mt(m, mass, M0, beta):
     '''maintanence scaling
 
     Args:
@@ -36,7 +36,7 @@ def scale_mt(m, mass, M0, alpha):
     '''
     #mass[mass<0] = 0
     # return m*(M0*(mass)**(1+alpha))
-    return np.sign(mass) * m*(M0*(np.abs(mass)**(alpha)))
+    return np.sign(mass) * m*(M0*(np.abs(mass)**(beta)))
     
 def scale_vout(vout, mass, E0, gamma):
 

@@ -40,7 +40,7 @@ def odes_not_scaled(t, y, l, m, rho, mu, km, p, D, vmax, type, Rhalf):
 
     return [mu*C*(v_grow-m), rho+km*(vdiff.T @ C)]
 
-def odes_scale_size(t, y, l, m, rho, mu, km, p, D, vmax, type, B0, M0, E0, alpha, gamma, Rhalf):
+def odes_scale_size(t, y, l, m, rho, mu, km, p, D, vmax, type, B0, M0, E0, alpha, beta, gamma, Rhalf):
     '''ODEs of our model -- scaled version
 
     Args:
@@ -59,6 +59,7 @@ def odes_scale_size(t, y, l, m, rho, mu, km, p, D, vmax, type, B0, M0, E0, alpha
         M0 (float): normalmisation constant
         E0 (float): normalmisation constant
         alpha (float): scaling constant
+        beta (float) : scaling constant
         gamma (float): scaling constant
         Rhalf (float): constant for sigma function
 
@@ -76,7 +77,7 @@ def odes_scale_size(t, y, l, m, rho, mu, km, p, D, vmax, type, B0, M0, E0, alpha
     v_out = vout(v_in, l, D)
     v_out = scale_vout(v_out, C, E0, gamma)
     vdiff = v_out - v_in
-    m_scale = scale_mt(m, C, M0, alpha)
+    m_scale = scale_mt(m, C, M0, beta)
 
     A = np.empty((N+M))
     drdt = rho+km*(vdiff.T @ C)
