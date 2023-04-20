@@ -36,7 +36,7 @@ def scale_mt(m, mass, M0, alpha):
     '''
     #mass[mass<0] = 0
     # return m*(M0*(mass)**(1+alpha))
-    return np.sign(mass) * m*(M0*(np.abs(mass)**(1+alpha)))
+    return np.sign(mass) * m*(M0*(np.abs(mass)**(alpha)))
     
 def scale_vout(vout, mass, E0, gamma):
 
