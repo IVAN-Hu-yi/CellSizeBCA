@@ -27,7 +27,7 @@ class Paras:
         self.E0 = 1e-03 # Normalisation constant for outflow
         self.alpha = - 0.25 # size-scaling exponent for inflow 
         self.gamma = 0.86 # size-scaling exponent for outflow
-        self.beta = -0.25 # maintainence
+        self.beta = 0.75 # maintainence
 
         ####### initialisation
         self.R0 = 10 # initial resource mass
