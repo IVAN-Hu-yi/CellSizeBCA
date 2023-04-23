@@ -37,7 +37,7 @@ def int_preferences(N, M, mu_c, assemblenum):
         np.random.seed(i) # ensure for each experiment, each species same preferences
         idx = np.random.randint(0, M, number) # select favored resoruces
         
-        np.random.seed(i+assemblenum)
+        np.random.seed(i)
         values = np.random.normal(1/number, 0.001, number).tolist() # initialisation
         for x, j in zip(idx, range(len(values))):
             p[i, x] = values[j]  # assign values
